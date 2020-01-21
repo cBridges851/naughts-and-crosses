@@ -1,0 +1,78 @@
+body
+{
+	background-color:#000000;
+	padding:0%;
+}
+
+#main_heading
+{
+	text-align:center;
+	font-family:"Showcard Gothic";
+	font-size:300%;
+	color:#FFFFFF;
+}
+
+.squares
+{
+	width:90px;
+	height:90px;
+	background-color:#FFFFFF;
+	font-size:80px;
+	font-family:"Arial Black";
+	padding:0%;
+	position:relative;
+}
+
+#board
+{
+	text-align:center;
+	padding:0;
+}
+
+#information_input
+{
+	color:#FFFFFF;
+	font-family:"Century Gothic";
+	font-size:100%;
+	text-align:center;
+}
+
+input
+{
+	font-size:100%;
+}
+
+#outputMessage
+{
+	color:#FFFFFF;
+	text-align:center;
+	font-size:150%;
+	font-family:"Century Gothic";
+}
+
+#select_mode
+{
+	margin:auto;
+	border: 1px solid #FFFFFF;
+	padding:2%;
+	width:34%;
+	text-align:center;
+	font-family:"Tahoma";
+	font-size:200%;
+	background-color:#FFFFFF;
+}
+
+.option
+{
+	width:95%;
+	background-color:#FF0000;
+	padding:4%;
+	text-decoration:none;
+	display:block;
+	color:#FFFFFF;
+}
+
+.option:hover
+{
+	background-color:#C60000;
+}

@@ -1,0 +1,1224 @@
+<html>
+<!DOCTYPE html>
+<head>
+	<title>Naughts and Crosses</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<script>
+		let enablePlay = true;
+		let crosses = true;
+		
+		let mostRecentMove;
+		
+		let row1 = [null, null, null];
+		let row2 = [null, null, null];
+		let row3 = [null, null, null];
+		
+		let numberOfNulls = 9;
+		
+		//console.log(row1+"\n"+row2+"\n"+row3);
+		
+		/*
+		function ClickSubmitButton()
+		{
+			enablePlay = true;
+			let playerOneName = textBoxPlayer1.value;
+			let playerTwoName = textBoxPlayer2.value;
+			
+		}
+		*/
+		
+		function ClickButton1()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square1');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[0] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row1[0]";
+						
+						numberOfNulls -= 1;
+						ai();
+					}
+
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton2()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square2');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[1] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row1[1]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton3()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square3');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[2] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row1[2]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+					
+					CheckForThreeInARow();
+				}
+				
+				
+			}
+		}
+		
+		function ClickButton4()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square4');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[0] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row2[0]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton5()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square5');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[1] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row2[1]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton6()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square6');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[2] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row2[2]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton7()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square7');
+				//console.log("This button has been pressed");
+				
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[0] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row3[0]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton8()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square8');
+				//console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[1] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row3[1]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton9()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square9');
+				//console.log("This button has been pressed");
+				
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[2] = "X";
+						crosses = false;
+						
+						mostRecentMove = "row3[2]";
+						
+						numberOfNulls -= 1;
+						
+						ai();
+					}
+
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ai()
+		{
+			let outputButton;
+			
+			//CB 2020-01-12 ***Executed if the top left button was pressed last (square1)***
+			if (mostRecentMove === "row1[0]")
+			{
+				//CB 2020-01-13 two crosses in first row
+				if(row1[1] === null && row1[2] === "X")
+				{
+					row1[1] = "O";
+					outputButton = document.getElementById('square2');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[2] === null && row1[1] === "X")
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-13 two crosses in first column
+				else if(row2[0] === null && row3[0] === "X")
+				{
+					row2[0] = "O";
+					outputButton = document.getElementById('square4');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[0] === null && row2[0] === "X")
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square7');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-13 two crosses in left diagonal 
+				else if(row2[1] === null && row3[2] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[2] === null && row2[1] === "X")
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				} 
+				
+				
+				//CB 2020-01-13 If all surrounding boxes do not have "X" value
+				else if(row1[1] === null && row2[0] === null && row2[1] === null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-13 ***Executed if the top middle button was pressed last (square2)***
+			else if (mostRecentMove === "row1[1]")
+			{
+				//CB 2020-01-13 two crosses in top row
+				if(row1[0] === null && row1[2] === "X")
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[2] === null && row1[0] === "X")
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-13 two crosses in second column
+				else if(row2[1] === null && row3[1] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[1] === null && row2[1] === "X")
+				{
+					row3[1] = "O";
+					outputButton = document.getElementById('square8');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[0] === null && row2[1] === null && row1[2] === null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+
+			//CB 2020-01-14 ***Executed if the top right button was pressed last (square3)***
+			else if(mostRecentMove === "row1[2]")
+			{
+				//CB 2020-01-14 two crosses in top row
+				if(row1[1] === null && row1[0] === "X")
+				{
+					row1[1] = "O";
+					outputButton = document.getElementById('square2');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				else if(row1[0] === null && row1[1] === "X")
+				{
+					row1[1] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				//CB 2020-01-14 two crosses in end column
+				else if(row2[2] === null && row3[2] === "X")
+				{
+					row2[2] = "O";
+					outputButton = document.getElementById('square6');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				else if(row3[2] === null && row2[2] === "X")
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				//CB 2020-01-14 two crosses right diagonal
+				else if(row2[1] === null && row3[0] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				else if(row3[0] === null && row2[1] === "X")
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square7');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-14 No surrounding squares are valued "X"
+				else if(row1[1] === null && row2[1] === null && row2[2]=== null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+
+			//CB 2020-01-14 ***Executed if the middle left button was pressed last (square4)***
+			else if(mostRecentMove === "row2[0]")
+			{
+				//CB 2020-01-14 two crosses in middle row
+				if(row2[1] === null && row2[2] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				else if(row2[2] === null && row2[1] === "X")
+				{
+					row2[2] = "O";
+					outputButton = document.getElementById('square6');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+
+				//CB 2020-01-14 two crosses in first column
+				else if(row1[0] === null && row3[0] === "X")
+				{
+					row1[0] = "O"
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[0] === null && row1[0] === "X")
+				{
+					row3[0] = "O"
+					outputButton = document.getElementById('square7');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-14 No surrounding squares are valued "X"
+				else if(row1[0] === null && row2[1] === null && row3[0] === null)
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-18 ***Executed if the central button was pressed last (square5)***
+			else if(mostRecentMove === "row2[1]")
+			{
+				let squareNumber = RandomNumberGeneration(1,8);
+				
+				//console.log("squareNumber = " + squareNumber);
+				
+				if(squareNumber === 0)
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 1)
+				{
+					row1[1] = "O";
+					outputButton = document.getElementById('square2');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 2)
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 3)
+				{
+					row2[0] = "O";
+					outputButton = document.getElementById('square4');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 4)
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 5)
+				{
+					row2[2] = "O";
+					outputButton = document.getElementById('square6');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 6)
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square7');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 7)
+				{
+					row3[1] = "O";
+					outputButton = document.getElementById('square8');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 8)
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(squareNumber === 9)
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-18 ***Executed if the middle right button was pressed last (square6)***
+			else if(mostRecentMove === "row2[2]")
+			{
+				//CB 2020-01-19 two crosses in end column
+				if(row1[2] === null && row3[2] === "X")
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[2] === null && row1[2] === "X")
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses in middle row
+				else if(row2[1] === null && row2[0])
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row2[1] === null && row2[0])
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square4');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 No surrounding squares are valued "X"
+				else if(row1[2] === null && row2[1] === null && row3[2] === null)
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-19 ***Executed if the bottom left button was pressed last (square7)***
+			else if(mostRecentMove === "row3[0]")
+			{
+				//CB 2020-01-19 two crosses in first column
+				if(row2[0] === null && row1[0] === "X")
+				{
+					row2[0] = "O";
+					outputButton = document.getElementById('square4');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[0] === null && row2[0] === "X")
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses on bottom row
+				else if(row3[1] === null && row3[2])
+				{
+					row3[1] = "O";
+					outputButton = document.getElementById('square8');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[2] === null && row3[1])
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses in right diagonal
+				else if(row2[1] === null && row1[2] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[2] === null && row2[1] === "X")
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 No surrounding squares are valued "X"
+				else if(row2[0] === null && row2[1] === null && row3[1] === null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-19 ***Executed if the bottom middle button was pressed last (square8)***
+			else if(mostRecentMove === "row3[1]")
+			{
+				//CB 2020-01-19 two crosses in bottom row
+				if(row3[0] === null && row3[2] === "X")
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square6');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[2] === null && row3[0] === "X")
+				{
+					row3[2] = "O";
+					outputButton = document.getElementById('square9');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses in middle column
+				else if(row2[1] === null && row1[0] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[0] === null && row2[1] === "X")
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square2');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 No surrounding squares are valued "X"
+				else if(row3[0] === null && row2[1] === null && row3[2] === null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			//CB 2020-01-19 ***Executed if the bottom right button was pressed last (square9)***
+			else if(mostRecentMove === "row3[2]")
+			{
+				//CB 2020-01-19 two crosses in bottom row
+				if(row3[1] === null && row3[0] === "X")
+				{
+					row3[1] = "O";
+					outputButton = document.getElementById('square8');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row3[0] === null && row3[1] === "X")
+				{
+					row3[0] = "O";
+					outputButton = document.getElementById('square7');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses in right column
+				else if(row2[2] === null && row1[2] === "X")
+				{
+					row2[2] = "O";
+					outputButton = document.getElementById('square6');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[2] === null && row2[2] === "X")
+				{
+					row1[2] = "O";
+					outputButton = document.getElementById('square3');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 two crosses in left diagonal
+				else if(row2[1] === null && row1[0] === "X")
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else if(row1[0] === null && row2[1] === "X")
+				{
+					row1[0] = "O";
+					outputButton = document.getElementById('square1');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				//CB 2020-01-19 No surrounding squares are valued "X"
+				else if(row3[1] === null && row2[1] === null && row2[2] === null)
+				{
+					row2[1] = "O";
+					outputButton = document.getElementById('square5');
+					
+					numberOfNulls -= 1;
+					
+					outputButton.innerHTML = `O`;
+				}
+				
+				else
+				{
+					OtherPlacement();
+				}
+			}
+			
+			CheckForThreeInARow();
+			crosses = true;
+			
+		}
+		
+		function RandomNumberGeneration(firstNumber, secondNumber)
+		{
+			let RandomNumber = Math.floor(Math.random() * 10);
+			return RandomNumber;
+		}
+		
+		function OtherPlacement()
+		{
+			//CB 2020-01-19 first row
+			if(row1[0] === null)
+			{
+				outputButton = document.getElementById('square1');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row1[1] === null)
+			{
+				outputButton = document.getElementById('square2');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row1[2] === null)
+			{
+				outputButton = document.getElementById('square3');
+				outputButton.innerHTML = `O`;
+			}
+			
+			//CB 2020-01-19 second row
+			else if(row2[0] === null)
+			{
+				outputButton = document.getElementById('square4');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row2[1] === null)
+			{
+				outputButton = document.getElementById('square5');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row2[2] === null)
+			{
+				outputButton = document.getElementById('square6');
+				outputButton.innerHTML = `O`;
+			}
+			
+			//CB 2020-01-19 third row
+			else if(row3[0] === null)
+			{
+				outputButton = document.getElementById('square7');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row3[1] === null)
+			{
+				outputButton = document.getElementById('square8');
+				outputButton.innerHTML = `O`;
+			}
+			
+			else if(row3[2] === null)
+			{
+				outputButton = document.getElementById('square9');
+				outputButton.innerHTML = `O`;
+			}
+					
+				
+			
+		}
+		
+		function CheckForThreeInARow()
+		{
+			//console.log("CheckForThreeInARow function is being executed");
+			//console.log("This is the player's row 1: " + row1);
+			
+			//CB 2020-01-11 ***Checking the rows***
+			//CB 2020-01-11 First row
+			if(row1[0] != null && row1[1] != null && row1[2]!= null)
+			{
+				
+				if(row1[0] === "X" && row1[1] === "X" && row1[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row1[0] === "O" && row1[1] === "O" && row1[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+				
+			}
+			
+			//CB 2020-01-11 Second row
+			if(row2[0] != null && row2[1] != null && row2[2]!= null)
+			{
+				
+				if(row2[0] === "X" && row2[1] === "X" && row2[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row2[0] === "O" && row2[1] === "O" && row2[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Third row
+			if(row3[0] != null && row3[1] != null && row3[2]!= null)
+			{
+				
+				if(row3[0] === "X" && row3[1] === "X" && row3[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row3[0] === "O" && row3[1] === "O" && row3[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 ***Checking The Columns***
+			//CB 2020-01-11 First Column
+			if(row1[0] != null && row2[0] != null && row3[0] != null)
+			{
+				if(row1[0] == "X" && row2[0] == "X" && row3[0] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[0] == "O" && row2[0] == "O" && row3[0] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Second Column
+			if(row1[1] != null && row2[1] != null && row3[1] != null)
+			{
+				if(row1[1] == "X" && row2[1] == "X" && row3[1] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[1] == "O" && row2[1] == "O" && row3[1] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Third Column
+			if(row1[2] != null && row2[2] != null && row3[2] != null)
+			{
+				if(row1[2] == "X" && row2[2] == "X" && row3[2] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[2] == "O" && row2[2] == "O" && row3[2] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 ***Checking The Diagonals***
+			//CB 2020-01-11 Left Diagonal
+			if(row1[0] != null && row2[1] != null && row3[2] != null)
+			{
+
+				if(row1[0] == "X" && row2[1] == "X" && row3[2] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[0] == "O" && row2[1] == "O" && row3[2] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+	
+			//CB 2020-01-11 Right Diagonal
+			if(row1[2] != null && row2[1] != null && row3[0] != null)
+			{
+
+				if(row1[2] == "X" && row2[1] == "X" && row3[0] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[2] == "O" && row2[1] == "O" && row3[0] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-19 Checking if all squares have been filled
+			if(numberOfNulls === 0)
+			{
+				outputMessage.innerHTML = `Draw`;
+			}
+
+		}
+	</script>
+	
+	<h1 id="main_heading">Naughts and Crosses</h1>
+	<br>
+	
+	<!--
+	<div id="information_input">
+		<div id="player1">
+		<label>Player 1 Name: </label><input id="textBoxPlayer1"/>
+		</div>
+		<br>
+		<div id="player2">
+		<label>Player 2 Name: </label><input id="textBoxPlayer2"/>
+		</div>
+		<br>
+		<button id="submit_button" onclick= "ClickSubmitButton()">SUBMIT NAMES</button>
+		<br><br>
+	</div>	-->
+	
+	<div id="board">
+		<button class="squares" onclick = "ClickButton1()" id="square1"></button>
+		<button class="squares" onclick = "ClickButton2()" id="square2"></button>
+		<button class="squares" onclick = "ClickButton3()" id="square3"></button>
+		<br>
+		<button class="squares" onclick = "ClickButton4()" id="square4"></button>
+		<button class="squares" onclick = "ClickButton5()" id="square5"></button>
+		<button class="squares" onclick = "ClickButton6()" id="square6"></button>
+		<br>
+		<button class="squares" onclick = "ClickButton7()" id="square7"></button>
+		<button class="squares" onclick = "ClickButton8()" id="square8"></button>
+		<button class="squares" onclick = "ClickButton9()" id="square9"></button>
+	</div>
+	<br>
+	<p id="outputMessage"></p>
+</body>
+</html>

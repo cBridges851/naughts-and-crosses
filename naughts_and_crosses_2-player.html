@@ -1,0 +1,473 @@
+<html>
+<!DOCTYPE html>
+<head>
+	<title>Naughts and Crosses</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<script>
+		let enablePlay = true;
+		let crosses = true;
+		
+		let row1 = [];
+		let row2 = [];
+		let row3 = [];
+		
+		console.log(row1+"\n"+row2+"\n"+row3);
+		
+		/*
+		function ClickSubmitButton()
+		{
+			enablePlay = true;
+			let playerOneName = textBoxPlayer1.value;
+			let playerTwoName = textBoxPlayer2.value;
+			
+		}
+		*/
+		
+		function ClickButton1()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square1');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[0] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row1[0] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton2()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square2');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[1] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row1[1] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton3()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square3');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row1[2] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row1[2] = "O";
+						crosses = true;
+					}
+					
+					CheckForThreeInARow();
+				}
+				
+				
+			}
+		}
+		
+		function ClickButton4()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square4');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[0] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row2[0] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton5()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square5');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[1] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row2[1] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton6()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square6');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row2[2] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row2[2] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton7()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square7');
+				console.log("This button has been pressed");
+				
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[0] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row3[0] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton8()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square8');
+				console.log("This button has been pressed");
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[1] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row3[1] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function ClickButton9()
+		{
+			if(enablePlay == true)
+			{
+				let outputButton = document.getElementById('square9');
+				console.log("This button has been pressed");
+				
+				while(outputButton.innerHTML == ``)
+				{
+					if(crosses == true)
+					{
+						outputButton.innerHTML = `X`;
+						row3[2] = "X";
+						crosses = false;
+					}
+					
+					else
+					{
+						outputButton.innerHTML = `O`;
+						row3[2] = "O";
+						crosses = true;
+					}
+					
+					
+				}
+				CheckForThreeInARow();
+			}
+		}
+		
+		function CheckForThreeInARow()
+		{
+			console.log("CheckForThreeInARow function is being executed");
+			console.log("This is the player's row 1: " + row1);
+			
+			//CB 2020-01-11 ***Checking the rows***
+			//CB 2020-01-11 First row
+			if(row1[0] != null && row1[1] != null && row1[2]!= null)
+			{
+				
+				if(row1[0] === "X" && row1[1] === "X" && row1[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row1[0] === "O" && row1[1] === "O" && row1[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+				
+			}
+			
+			//CB 2020-01-11 Second row
+			if(row2[0] != null && row2[1] != null && row2[2]!= null)
+			{
+				
+				if(row2[0] === "X" && row2[1] === "X" && row2[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row2[0] === "O" && row2[1] === "O" && row2[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Third row
+			if(row3[0] != null && row3[1] != null && row3[2]!= null)
+			{
+				
+				if(row3[0] === "X" && row3[1] === "X" && row3[2] === "X")
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+				
+				else if(row3[0] === "O" && row3[1] === "O" && row3[2] === "O")
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 ***Checking The Columns***
+			//CB 2020-01-11 First Column
+			if(row1[0] != null && row2[0] != null && row3[0] != null)
+			{
+				if(row1[0] == "X" && row2[0] == "X" && row3[0] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[0] == "O" && row2[0] == "O" && row3[0] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Second Column
+			if(row1[1] != null && row2[1] != null && row3[1] != null)
+			{
+				if(row1[1] == "X" && row2[1] == "X" && row3[1] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[1] == "O" && row2[1] == "O" && row3[1] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 Third Column
+			if(row1[2] != null && row2[2] != null && row3[2] != null)
+			{
+				if(row1[2] == "X" && row2[2] == "X" && row3[2] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[2] == "O" && row2[2] == "O" && row3[2] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			//CB 2020-01-11 ***Checking The Diagonals***
+			//CB 2020-01-11 Left Diagonal
+			if(row1[0] != null && row2[1] != null && row3[2] != null)
+			{
+
+				if(row1[0] == "X" && row2[1] == "X" && row3[2] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[0] == "O" && row2[1] == "O" && row3[2] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+	
+			//CB 2020-01-11 Right Diagonal
+			if(row1[2] != null && row2[1] != null && row3[0] != null)
+			{
+
+				if(row1[2] == "X" && row2[1] == "X" && row3[0] == "X")	
+				{
+					outputMessage.innerHTML = `Player 1 Wins!`;
+					enablePlay = false;
+				}
+
+				else if(row1[2] == "O" && row2[1] == "O" && row3[0] == "O")	
+				{
+					outputMessage.innerHTML = `Player 2 Wins!`;
+					enablePlay = false;
+				}
+			}
+			
+			if(row1.Length == 3 && row2.Length == 3 && row3 == 3)
+			{
+				outputMessage.innerHTML = `Draw`
+			}
+			
+			
+		}
+	</script>
+	
+	<h1 id="main_heading">Naughts and Crosses</h1>
+	<br>
+	
+	<!--
+	<div id="information_input">
+		<div id="player1">
+		<label>Player 1 Name: </label><input id="textBoxPlayer1"/>
+		</div>
+		<br>
+		<div id="player2">
+		<label>Player 2 Name: </label><input id="textBoxPlayer2"/>
+		</div>
+		<br>
+		<button id="submit_button" onclick= "ClickSubmitButton()">SUBMIT NAMES</button>
+		<br><br>
+	</div>	-->
+	
+	<div id="board">
+		<button class="squares" onclick = "ClickButton1()" id="square1"></button>
+		<button class="squares" onclick = "ClickButton2()" id="square2"></button>
+		<button class="squares" onclick = "ClickButton3()" id="square3"></button>
+		<br>
+		<button class="squares" onclick = "ClickButton4()" id="square4"></button>
+		<button class="squares" onclick = "ClickButton5()" id="square5"></button>
+		<button class="squares" onclick = "ClickButton6()" id="square6"></button>
+		<br>
+		<button class="squares" onclick = "ClickButton7()" id="square7"></button>
+		<button class="squares" onclick = "ClickButton8()" id="square8"></button>
+		<button class="squares" onclick = "ClickButton9()" id="square9"></button>
+	</div>
+	<br>
+	<p id="outputMessage"></p>
+</body>
+</html>
